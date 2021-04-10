@@ -67,7 +67,7 @@ class MLP(object):
         else:
             print("Activation Selection Error")
         return z
-    
+    #
     def forward(self, x): # "copyto" looks like directly manipulate the value at some address
         np.copyto(self.net[0]['a'], x) # Copy input into a of Layer 0
 
