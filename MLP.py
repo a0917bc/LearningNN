@@ -87,7 +87,7 @@ class MLP(object):
         loss_value = -1.0 * np.sum(self.y_onehot * np.log(self.p))
 
         self.J.append(loss_value) # Look 
-
+# fffff
         W = []
         for i in range(1, len(self.net)):
             W.extend(np.ravel(self.net[i]['W'])) # ravel =? extend
