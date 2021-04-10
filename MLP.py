@@ -72,7 +72,7 @@ class MLP(object):
         np.copyto(self.net[0]['a'], x) # Copy input into a of Layer 0
 
         for i in range(1, len(self.net)): # Start from 0; Let i start from 1
-            np.copyto(self.net[i]['z'], np.dot(self.net[i]['W'], self.net[i-1]['a']) + self.net[i]['b'])
+            np.copyto(self.net[i]['z'], np.dot(self.net[i]['W'], self.net[i-1]['a']) + self.net[i]['b']) # iterator
             np.copyto(self.net[i]['a'], self.activation(self.net[i]['z']))
         
         np.copyto(self.p, self.softmax(self.net[-1]['a']))
