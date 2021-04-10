@@ -48,6 +48,7 @@ def convolve2D(image, kernel, padding=0, strides=1):
 
     return output
 #%%
+#Driver code for conv2d is to do edge-detection
 if __name__ == '__main__':
     # Grayscale Image
     image = processImage('Image.jpeg')
