@@ -1,4 +1,10 @@
 #%%
+'''
+This code is came from the following website
+https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
+
+
+'''
 import numpy as np
 import cv2
 def processImage(image): 
@@ -42,13 +48,15 @@ def convolve2D(image, kernel, padding=0, strides=1):
                 try:
                     # Only Convolve if x has moved by the specified Strides
                     if x % strides == 0:
+                        # numpy have dot operator so we don't need to another two for loop
                         output[x, y] = (kernel * imagePadded[x: x + xKernShape, y: y + yKernShape]).sum()
                 except:
                     break
 
     return output
+# Just Conv2d operation, need to extend the channel form for CNN
 #%%
-#Driver code for conv2d is to do edge-detection
+#The driver code for conv2d is to do edge-detection
 if __name__ == '__main__':
     # Grayscale Image
     image = processImage('Image.jpeg')
@@ -60,3 +68,4 @@ if __name__ == '__main__':
     output = convolve2D(image, kernel, padding=2)
     cv2.imwrite('2DConvolved.jpg', output)
 # %%
+#if __name__ == '__main__':

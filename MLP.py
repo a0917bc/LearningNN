@@ -12,7 +12,7 @@ class MLP(object):
         self.lr = float()
         self.LeakyRate = float()
         self.act = str()
-        self.net = [dict() for i in range(len(Layers))]# Every element in the list is a dictionary 
+        self.net = [dict() for _ in range(len(Layers))]# Every element in the list is a dictionary 
 
         self.net[0]['a'] = np.zeros((Layers[0], self.bs), dtype = 'float16')
         self.net[0]['dJda'] = np.zeros(self.net[0]['a'].shape, dtype = 'float16')
@@ -164,7 +164,7 @@ tx = np.array([[1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6], [1, 2, 3,
 ty = np.array([1, 0, 0, 2, 1, 0, 0, 2, 1, 0, 1, 2, 2, 1, 0, 1, 2, 1])
 
 nn = MLP((2, 5, 5, 3), 18)
-nn.train(tx, ty, epoch_count=10000, lr=100, act="sigmoid", LeakyRate=0.01)
+nn.train(tx, ty, epoch_count=10000, lr=10, act="sigmoid", LeakyRate=0.01)
 
 plt.plot(nn.J)
 #%%
