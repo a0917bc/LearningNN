@@ -76,7 +76,7 @@ class MLP(object):
             np.copyto(self.net[i]['a'], self.activation(self.net[i]['z']))
         
         np.copyto(self.p, self.softmax(self.net[-1]['a']))
-        np.copyto(self.yhat, np.argmax(self.p, axis=0))
+        np.copyto(self.yhat, np.argmax(self.p, axis=0))# Final predicated answer
         return
 
     def loss(self, y):
@@ -84,7 +84,7 @@ class MLP(object):
         self.y_onehot.fill(0)
         for i in range(self.bs):
             self.y_onehot[y[i], i] = 1 # Compare & Turn on
-        loss_value = -1.0 * np.sum(self.y_onehot * np.log(self.p))
+        loss_value = -1.0 * np.sum(self.y_onehot * np.log(self.p)) / self.bs
 
         self.J.append(loss_value) # Look 
 # fffff
@@ -164,7 +164,7 @@ tx = np.array([[1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6], [1, 2, 3,
 ty = np.array([1, 0, 0, 2, 1, 0, 0, 2, 1, 0, 1, 2, 2, 1, 0, 1, 2, 1])
 
 nn = MLP((2, 5, 5, 3), 18)
-nn.train(tx, ty, epoch_count=10000, lr=10, act="sigmoid", LeakyRate=0.01)
+nn.train(tx, ty, epoch_count=50000, lr=0.01, act="sigmoid", LeakyRate=0.01)
 
 plt.plot(nn.J)
 #%%
@@ -225,3 +225,14 @@ array([[1, 3, 3, 2, 7],
        [9, 4, 3, 0, 3],
        [8, 1, 5, 9, 8]])
 '''
+#%%
+'''
+Sexy classifier
+'''
+px = np.array([[1, 1, 2, 2, 2, 4, 4, 5, 5], [2, 5, 1, 2, 4, 1, 4, 2, 4]])
+py = np.array([0, 2, 0, 0, 2, 1, 3, 1, 3])
+nnp = MLP((2, 6, 4), 9)
+nnp.train(px, py, epoch_count=5000, lr=0.05, act="sigmoid", LeakyRate=0)
+plt.plot(nnp.J)
+
+# %%

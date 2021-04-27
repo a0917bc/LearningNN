@@ -1,14 +1,14 @@
+#%%
 from numpy import *
 from ConvNet import *
 import time
 import struct
 
-
 def train_net(train_covnet, logfile, cycle, learn_rate, case_num = -1) :
     # Read data 
     # Change it to your own dataset path
-    trainim_filepath = '/Users/zhoujiaxing/Documents/projects/Python/LearningNN/MNIST/train-images.idx3-ubyte'
-    trainlabel_filepath = '/Users/zhoujiaxing/Documents/projects/Python/LearningNN/MNIST/train-labels.idx1-ubyte'
+    trainim_filepath = 'MNIST/train-images.idx3-ubyte'
+    trainlabel_filepath = 'MNIST/train-labels.idx1-ubyte'
     trainimfile = open(trainim_filepath, 'rb')
     trainlabelfile = open(trainlabel_filepath, 'rb')
     train_im = trainimfile.read()
@@ -20,8 +20,8 @@ def train_net(train_covnet, logfile, cycle, learn_rate, case_num = -1) :
     print ('train_set:', numImages)
 
     train_btime = time.time()
-    logfile.write('learn_rate:' + str(learn_rate) + '\t')
-    logfile.write('train_cycle:' + str(cycle) + '\t')
+    logfile.write('learn_rate:' + str(learn_rate) + '\n')
+    logfile.write('train_cycle:' + str(cycle) + '\n')
 
     # Begin to train
     for c in range(cycle) :
@@ -30,7 +30,7 @@ def train_net(train_covnet, logfile, cycle, learn_rate, case_num = -1) :
         train_case_num = numImages
         if case_num != -1 and case_num < numImages :
             train_case_num = case_num
-        logfile.write("trainset_num:" + str(train_case_num) + '\t')
+        logfile.write("trainset_num:" + str(train_case_num) + '\n')
         for case in range(train_case_num) :
             im = struct.unpack_from('>784B', train_im, im_index)
             label = struct.unpack_from('>1B', train_label, label_index)
@@ -50,14 +50,13 @@ def train_net(train_covnet, logfile, cycle, learn_rate, case_num = -1) :
             train_covnet.bw_prop(im, label, learn_rate[c])
 
     print ('train_time:', time.time() - train_btime)
-    logfile.write('train_time:'+ str(time.time() - train_btime) + '\t')
-
+    logfile.write('train_time:'+ str(time.time() - train_btime) + '\n')
 def test_net(train_covnet, logfile, case_num = -1) :
     
     # Read data 
     # Change it to your own dataset path
-    testim_filepath = '../../../data/raw/t10k-images-idx3-ubyte'
-    testlabel_filepath = '../../../data/raw/t10k-labels-idx1-ubyte'
+    testim_filepath = 'MNIST/t10k-images.idx3-ubyte'
+    testlabel_filepath = 'MNIST/t10k-labels.idx1-ubyte'
     testimfile = open(testim_filepath, 'rb')
     testlabelfile = open(testlabel_filepath, 'rb')
     test_im = testimfile.read()
@@ -75,7 +74,7 @@ def test_net(train_covnet, logfile, case_num = -1) :
     testcase_num = numImages
     if case_num != -1 and case_num < numImages:
         testcase_num = case_num
-    logfile.write("testset_num:" + str(testcase_num) + '\t')
+    logfile.write("testset_num:" + str(testcase_num) + '\n')
 
     # To test
     for case in range(testcase_num) :
@@ -92,23 +91,25 @@ def test_net(train_covnet, logfile, case_num = -1) :
                     bigim[i+2][j+2] = 1.175
         im = array([bigim])
         label = label[0]
-        print( case, label)
+        print(case, label)
         train_covnet.fw_prop(im)
         if argmax(train_covnet.outputlay7.maps[0][0]) == label :
             correct_num += 1
     correct_rate = correct_num / float(testcase_num)
     print('test_correct_rate:', correct_rate)
-    logfile.write('test_correct_rate:'+ str(correct_rate) + '\t')
+    logfile.write('test_correct_rate:'+ str(correct_rate) + '\n')
     logfile.write('\n')
-
-
+#%%
+'''
+This code is a lot of shit
+'''
 log_timeflag = time.time()
 train_covnet = CovNet()
 # Creat a folder name 'log' to save the history
 train_covnet.print_netweight('log/origin_weight' + str(log_timeflag) + '.log')
 logfile = open('log/nanerrortestcase.log', 'w')
-logfile.write("train_time:" + str(log_timeflag) + '\t')
-train_net(train_covnet, logfile, 1, [0.0001, 0.0001], 10000)
+logfile.write("train_time:" + str(log_timeflag) + '\n')
+train_net(train_covnet, logfile, 1, [0.01, 0.01], 10000)
 train_covnet.print_netweight('log/trained_weight' + str(log_timeflag) + '.log')
 test_net(train_covnet, logfile, 3000)
 logfile.write('\n')

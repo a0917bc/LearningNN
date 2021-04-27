@@ -70,3 +70,4 @@ class CovNet(object) :
         outputfile.write(str(self.covlay5.current_error) + cut_line)
         outputfile.write(str(self.fclay6.current_error) + cut_line)
         outputfile.write(str(self.outputlay7.current_error) + cut_line)
+# %%
