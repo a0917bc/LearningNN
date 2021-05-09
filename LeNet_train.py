@@ -38,6 +38,7 @@ def train_net(train_covnet, logfile, cycle, learn_rate, case_num = -1) :
             label_index += struct.calcsize('>1B')
             im = array(im)
             im = im.reshape(28,28)
+            # data preprocessing, turn 0~255 to 1.175
             bigim = list(ones((32, 32)) * -0.1)
             for i in range(28) :
                 for j in range(28) :
@@ -105,6 +106,7 @@ This code is a lot of shit
 '''
 log_timeflag = time.time()
 train_covnet = CovNet()
+#%%
 # Creat a folder name 'log' to save the history
 train_covnet.print_netweight('log/origin_weight' + str(log_timeflag) + '.log')
 logfile = open('log/nanerrortestcase.log', 'w')

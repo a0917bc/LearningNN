@@ -1,3 +1,4 @@
+#%%
 from numpy import *
 from CovLayer import *
 from PoolingLayer import *

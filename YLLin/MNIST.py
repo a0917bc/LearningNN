@@ -8,7 +8,8 @@ Loosely inspired by http://abel.ee.ucla.edu/cvxopt/_downloads/mnist.py
 which is GPL licensed.
 """
 
-def read(dataset = "training", path = "./MNIST"):
+
+def read(dataset="training", path="/Users/zhoujiaxing/Documents/projects/Python/LearningNN/MNIST"):
     """
     Python function for importing the MNIST data set.  It returns an iterator
     of 2-tuples with the first element being the label and the second element
@@ -63,11 +64,11 @@ def ascii_show(image):
 # %%
 
 
-training_data = list(read(dataset='training'))
-label, pixel = training_data[0]
-print(len(training_data))
-print(label)
-print(pixel.shape)
-show(pixel)
+# training_data = list(read(dataset='training'))
+# label, pixel = training_data[0]
+# print(len(training_data))
+# print(label)
+# print(pixel.shape)
+# show(pixel)
 
 # %%

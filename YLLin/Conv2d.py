@@ -1,9 +1,7 @@
 #%%
 '''
 This code is came from the following website
-https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
-
-
+https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f38
 '''
 import numpy as np
 import cv2
